@@ -21,7 +21,7 @@
     <button
       type="button"
       onclick={copy}
-      class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-[#006FCF] hover:text-[#0060b8] transition-colors"
+      class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-semibold text-[#1f2978] hover:text-[#182068] transition-colors"
     >
       {copied ? 'Kopiert!' : 'Kopieren'}
     </button>

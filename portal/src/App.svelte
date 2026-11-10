@@ -84,7 +84,7 @@
               <button
                 type="button"
                 onclick={async () => { await navigator.clipboard.writeText(caseData!.case_id) }}
-                class="absolute right-2 top-1/2 -translate-y-1/2 text-sm font-medium text-[#006FCF] hover:text-[#0060b8] transition-colors"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-sm font-medium text-[#1f2978] hover:text-[#182068] transition-colors"
               >Kopieren</button>
             </div>
           </div>
@@ -94,7 +94,7 @@
           <button
             onclick={activate}
             disabled={phase === 'generating'}
-            class="w-full inline-flex items-center justify-center bg-[#006FCF] py-3 text-base font-semibold text-white transition-colors disabled:opacity-80 disabled:cursor-not-allowed hover:bg-[#0060b8]"
+            class="w-full inline-flex items-center justify-center bg-[#1f2978] py-3 text-base font-semibold text-white transition-colors disabled:opacity-80 disabled:cursor-not-allowed hover:bg-[#182068]"
           >
             {#if phase === 'generating'}
               <svg class="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
