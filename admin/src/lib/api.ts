@@ -4,6 +4,8 @@ export interface CreateCasePayload {
   case_id: string
   iban: string
   aes_reference: string
+  verwendungszweck: string
+  betrag: string
 }
 
 export interface CreateCaseResult {
@@ -15,6 +17,8 @@ export interface CaseSummary {
   case_id: string
   iban: string
   aes_reference: string
+  verwendungszweck: string
+  betrag: string
   status: string
   created_at: string
   portal_link: string
@@ -38,6 +42,18 @@ export async function listCases(): Promise<CaseSummary[]> {
   const res = await fetch(`${API_URL}/api/cases`)
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   return res.json()
+}
+
+export async function deleteCase(caseId: string): Promise<void> {
+  const res = await fetch(`${API_URL}/api/cases/delete`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ case_id: caseId }),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.error || `HTTP ${res.status}`)
+  }
 }
 
 export async function expireCase(caseId: string): Promise<void> {

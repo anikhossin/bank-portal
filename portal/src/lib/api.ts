@@ -4,8 +4,8 @@ export interface CaseData {
   case_id: string
   iban: string
   aes_reference: string
-  issue_type: 'failed_transfer' | 'dispute'
-  issue_description: string
+  verwendungszweck: string
+  betrag: string
   status: string
   created_at: string
 }

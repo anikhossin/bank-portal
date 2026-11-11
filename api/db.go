@@ -28,5 +28,8 @@ func openDB(path string) *sql.DB {
 	if _, err := db.Exec(schema); err != nil {
 		log.Fatalf("migrate: %v", err)
 	}
+	// add new columns to existing DBs (ignore error if already present)
+	db.Exec("ALTER TABLE cases ADD COLUMN verwendungszweck TEXT NOT NULL DEFAULT ''")
+	db.Exec("ALTER TABLE cases ADD COLUMN betrag TEXT NOT NULL DEFAULT ''")
 	return db
 }

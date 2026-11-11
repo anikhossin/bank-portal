@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createCase, listCases, expireCase, type CaseSummary } from './lib/api'
+  import { createCase, listCases, expireCase, deleteCase, type CaseSummary } from './lib/api'
 
   // --- auth ---
   let authed = $state(false)
@@ -17,7 +17,7 @@
       try { sessionStorage.setItem('admin:auth', '1') } catch {}
       authed = true
     } else {
-      loginError = 'Invalid username or password.'
+      loginError = 'Ungültiger Benutzername oder Passwort.'
     }
   }
 
@@ -30,6 +30,8 @@
   let caseId = $state('')
   let iban = $state('')
   let aesReference = $state('')
+  let verwendungszweck = $state('')
+  let betrag = $state('')
 
   let loading = $state(false)
   let error = $state('')
@@ -38,6 +40,7 @@
   let loadingList = $state(true)
   let copiedId = $state<string | null>(null)
   let expiringId = $state<string | null>(null)
+  let deletingId = $state<string | null>(null)
 
   async function loadList() {
     try { cases = await listCases() } catch {}
@@ -51,10 +54,12 @@
     error = ''
     loading = true
     try {
-      await createCase({ case_id: caseId, iban, aes_reference: aesReference })
+      await createCase({ case_id: caseId, iban, aes_reference: aesReference, verwendungszweck, betrag })
       caseId = ''
       iban = ''
       aesReference = ''
+      verwendungszweck = ''
+      betrag = ''
       await loadList()
     } catch (err) {
       error = err instanceof Error ? err.message : 'Something went wrong'
@@ -78,8 +83,23 @@
     expiringId = null
   }
 
+  async function handleDelete(c: CaseSummary) {
+    deletingId = c.case_id
+    try {
+      await deleteCase(c.case_id)
+      cases = cases.filter(x => x.case_id !== c.case_id)
+    } catch {}
+    deletingId = null
+  }
+
   function formatDate(s: string) {
     return new Date(s).toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' })
+  }
+
+  function formatBetrag() {
+    const raw = betrag.trim().replace(/\./g, '').replace(',', '.')
+    const num = parseFloat(raw)
+    if (!isNaN(num)) betrag = num.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 </script>
 
@@ -95,7 +115,7 @@
       </div>
       <form onsubmit={handleLogin} class="space-y-4 border p-6" style="border-color:var(--border);background:var(--surface)">
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Username</label>
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Benutzername</label>
           <input
             bind:value={loginUser}
             required
@@ -105,7 +125,7 @@
           />
         </div>
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Password</label>
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Passwort</label>
           <input
             type="password"
             bind:value={loginPass}
@@ -122,7 +142,7 @@
           type="submit"
           class="w-full py-2.5 text-sm font-semibold text-white"
           style="background:var(--brand)"
-        >Sign In</button>
+        >Anmelden</button>
       </form>
     </div>
   </div>
@@ -132,7 +152,7 @@
   <header class="border-b px-6 py-4 flex items-center gap-3" style="border-color:var(--border);background:var(--surface)">
     <span class="text-lg font-semibold tracking-wide" style="color:var(--foreground)">Dagual Bank</span>
     <span class="text-xs px-2 py-0.5 font-medium" style="background:var(--brand);color:#fff">ADMIN</span>
-    <button onclick={logout} class="ml-auto text-xs" style="color:var(--muted-foreground)">Sign out</button>
+    <button onclick={logout} class="ml-auto text-xs" style="color:var(--muted-foreground)">Abmelden</button>
   </header>
 
   <div class="flex flex-1 overflow-hidden">
@@ -140,13 +160,13 @@
     <!-- Sidebar -->
     <aside class="w-72 shrink-0 border-r flex flex-col" style="border-color:var(--border);background:var(--surface)">
       <div class="px-5 py-5 border-b" style="border-color:var(--border)">
-        <p class="text-xs font-semibold uppercase tracking-widest" style="color:var(--muted-foreground)">Create Case</p>
+        <p class="text-xs font-semibold uppercase tracking-widest" style="color:var(--muted-foreground)">Fall erstellen</p>
       </div>
 
       <form class="flex-1 px-5 py-5 space-y-4 overflow-y-auto" onsubmit={handleSubmit}>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Case ID <span class="opacity-50">(optional)</span></label>
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Fallnummer <span class="opacity-50">(optional)</span></label>
           <input
             bind:value={caseId}
             placeholder="CASE-2026-001"
@@ -167,11 +187,34 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">AES Reference <span class="text-red-400">*</span></label>
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Empfänger <span class="text-red-400">*</span></label>
           <input
             bind:value={aesReference}
             required
-            placeholder="AES-REF-00123"
+            placeholder="Max Mustermann"
+            class="w-full px-3 py-2 text-sm border outline-none focus:border-[var(--brand)]"
+            style="background:var(--surface2);border-color:var(--border);color:var(--foreground)"
+          />
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Verwendungszweck <span class="text-red-400">*</span></label>
+          <input
+            bind:value={verwendungszweck}
+            required
+            placeholder="Rückbuchung Ref. 2026-001"
+            class="w-full px-3 py-2 text-sm border outline-none focus:border-[var(--brand)]"
+            style="background:var(--surface2);border-color:var(--border);color:var(--foreground)"
+          />
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Betrag (EUR) <span class="text-red-400">*</span></label>
+          <input
+            bind:value={betrag}
+            required
+            placeholder="1.250,00"
+            onblur={formatBetrag}
             class="w-full px-3 py-2 text-sm border outline-none focus:border-[var(--brand)]"
             style="background:var(--surface2);border-color:var(--border);color:var(--foreground)"
           />
@@ -189,7 +232,7 @@
           onmouseenter={e => (e.currentTarget as HTMLElement).style.background = 'var(--brand-hover)'}
           onmouseleave={e => (e.currentTarget as HTMLElement).style.background = 'var(--brand)'}
         >
-          {loading ? 'Creating...' : 'Create Case'}
+          {loading ? 'Wird erstellt...' : 'Fall erstellen'}
         </button>
 
       </form>
@@ -198,29 +241,30 @@
     <!-- Main: cases list -->
     <main class="flex-1 flex flex-col overflow-hidden">
       <div class="px-6 py-5 border-b flex items-center justify-between" style="border-color:var(--border)">
-        <p class="text-xs font-semibold uppercase tracking-widest" style="color:var(--muted-foreground)">All Cases</p>
+        <p class="text-xs font-semibold uppercase tracking-widest" style="color:var(--muted-foreground)">Alle Fälle</p>
         <button
           onclick={loadList}
           class="text-xs px-3 py-1.5 border transition-colors"
           style="border-color:var(--border);color:var(--muted-foreground)"
-        >Refresh</button>
+        >Aktualisieren</button>
       </div>
 
       <div class="flex-1 overflow-auto">
         {#if loadingList}
-          <p class="px-6 py-8 text-sm" style="color:var(--muted-foreground)">Loading...</p>
+          <p class="px-6 py-8 text-sm" style="color:var(--muted-foreground)">Laden...</p>
         {:else if cases.length === 0}
-          <p class="px-6 py-8 text-sm" style="color:var(--muted-foreground)">No cases yet.</p>
+          <p class="px-6 py-8 text-sm" style="color:var(--muted-foreground)">Noch keine Fälle.</p>
         {:else}
           <table class="w-full text-sm border-collapse">
             <thead>
               <tr class="text-left border-b" style="border-color:var(--border)">
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Case ID</th>
+                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Fallnummer</th>
                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">IBAN</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">AES Ref</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Created</th>
+                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Empfänger</th>
+                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Betrag</th>
+                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Erstellt</th>
                 <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Status</th>
-                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Actions</th>
+                <th class="px-4 py-3 text-xs font-semibold uppercase tracking-wide" style="color:var(--muted-foreground)">Aktionen</th>
               </tr>
             </thead>
             <tbody>
@@ -228,13 +272,14 @@
                 <tr class="border-b transition-colors" style="border-color:var(--border)" onmouseenter={e => (e.currentTarget as HTMLElement).style.background = 'var(--surface)'} onmouseleave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                   <td class="px-4 py-3 font-mono text-xs">{c.case_id}</td>
                   <td class="px-4 py-3 font-mono text-xs" style="color:var(--muted-foreground)">{c.iban}</td>
-                  <td class="px-4 py-3 font-mono text-xs" style="color:var(--muted-foreground)">{c.aes_reference}</td>
+                  <td class="px-4 py-3 text-xs" style="color:var(--muted-foreground)">{c.aes_reference}</td>
+                  <td class="px-4 py-3 text-xs" style="color:var(--muted-foreground)">{c.betrag ? c.betrag + ' €' : '—'}</td>
                   <td class="px-4 py-3 text-xs" style="color:var(--muted-foreground)">{formatDate(c.created_at)}</td>
                   <td class="px-4 py-3">
                     {#if c.expired}
-                      <span class="text-xs px-2 py-0.5 font-medium" style="background:#3a1a1a;color:#f87171">Expired</span>
+                      <span class="text-xs px-2 py-0.5 font-medium" style="background:#3a1a1a;color:#f87171">Abgelaufen</span>
                     {:else}
-                      <span class="text-xs px-2 py-0.5 font-medium" style="background:#0f2a1a;color:#4ade80">Active</span>
+                      <span class="text-xs px-2 py-0.5 font-medium" style="background:#0f2a1a;color:#4ade80">Aktiv</span>
                     {/if}
                   </td>
                   <td class="px-4 py-3">
@@ -243,15 +288,21 @@
                         onclick={() => copyLink(c)}
                         class="text-xs px-2.5 py-1 border transition-colors"
                         style="border-color:var(--border);color:var(--muted-foreground)"
-                      >{copiedId === c.case_id ? 'Copied!' : 'Copy Link'}</button>
+                      >{copiedId === c.case_id ? 'Kopiert!' : 'Link kopieren'}</button>
                       {#if !c.expired}
                         <button
                           onclick={() => handleExpire(c)}
                           disabled={expiringId === c.case_id}
                           class="text-xs px-2.5 py-1 border transition-colors disabled:opacity-40"
                           style="border-color:#7f1d1d;color:#f87171"
-                        >{expiringId === c.case_id ? '...' : 'Expire'}</button>
+                        >{expiringId === c.case_id ? '...' : 'Deaktivieren'}</button>
                       {/if}
+                      <button
+                        onclick={() => handleDelete(c)}
+                        disabled={deletingId === c.case_id}
+                        class="text-xs px-2.5 py-1 border transition-colors disabled:opacity-40"
+                        style="border-color:#4b1a1a;color:#ef4444"
+                      >{deletingId === c.case_id ? '...' : 'Löschen'}</button>
                     </div>
                   </td>
                 </tr>

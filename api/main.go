@@ -72,6 +72,13 @@ func main() {
 		}
 		s.expireCase(w, r)
 	}))
+	mux.HandleFunc("/api/cases/delete", withCORS(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+		s.deleteCase(w, r)
+	}))
 	mux.HandleFunc("/api/case", withCORS(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)

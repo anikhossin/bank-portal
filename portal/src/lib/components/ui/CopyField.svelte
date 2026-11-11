@@ -10,13 +10,13 @@
 </script>
 
 <div class="space-y-1.5">
-  <p class="text-sm font-bold text-[var(--foreground)]">{label}</p>
+  <p class="text-xs font-semibold uppercase tracking-widest text-[var(--muted-foreground)]">{label}</p>
   <div class="relative">
     <input
       type="text"
       readonly
       {value}
-      class="w-full rounded-md border border-[var(--border)] bg-white px-4 py-3.5 pr-20 text-base tracking-wide text-[var(--foreground)] focus:outline-none cursor-default select-all"
+      class="w-full rounded-md border border-[var(--border)] bg-white px-4 py-3.5 pr-20 text-[15px] font-medium tracking-wide text-[var(--foreground)] focus:outline-none cursor-default select-all"
     />
     <button
       type="button"

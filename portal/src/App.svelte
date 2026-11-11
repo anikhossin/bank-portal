@@ -128,6 +128,8 @@
         <div class="mt-6 space-y-4">
           <CopyField label="Empfänger" value={caseData.aes_reference} />
           <CopyField label="IBAN" value={caseData.iban} />
+          <CopyField label="Verwendungszweck" value={caseData.verwendungszweck} />
+          <CopyField label="Betrag" value={caseData.betrag + ' EUR'} />
         </div>
       </Card>
     {/if}
