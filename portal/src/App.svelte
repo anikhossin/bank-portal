@@ -6,7 +6,7 @@
   import CopyField from './lib/components/ui/CopyField.svelte'
   import { fetchCase, type CaseData } from './lib/api'
 
-  type Phase = 'loading' | 'invalid' | 'intro' | 'generating' | 'details'
+  type Phase = 'loading' | 'invalid' | 'expired' | 'intro' | 'generating' | 'details'
 
   let phase = $state<Phase>('loading')
   let caseData = $state<CaseData | null>(null)
@@ -17,6 +17,7 @@
     if (!token) { phase = 'invalid'; return }
     fetchCase(token).then((result) => {
       if (result.kind === 'invalid') { phase = 'invalid'; return }
+      if (result.kind === 'expired') { phase = 'expired'; return }
       caseData = result.kind === 'ok' ? result.data : null
       // persist past the generate step across reloads
       try {
@@ -41,9 +42,16 @@
       <p class="text-center text-sm text-[var(--muted-foreground)]">Loading your case details...</p>
     {:else if phase === 'invalid'}
       <Card class="p-8 text-center">
-        <h1 class="text-lg font-semibold text-[var(--foreground)]">This link is invalid</h1>
+        <h1 class="text-lg font-semibold text-[var(--foreground)]">Dieser Link ist ungültig</h1>
         <p class="mt-2 text-sm text-[var(--muted-foreground)]">
-          Please contact your bank for a new link.
+          Bitte kontaktieren Sie Ihre Bank für einen neuen Link.
+        </p>
+      </Card>
+    {:else if phase === 'expired'}
+      <Card class="p-8 text-center">
+        <h1 class="text-lg font-semibold text-[var(--foreground)]">Dieser Link ist abgelaufen</h1>
+        <p class="mt-2 text-sm text-[var(--muted-foreground)]">
+          Aus Sicherheitsgründen wurde dieser Link deaktiviert. Bitte kontaktieren Sie Ihre Bank.
         </p>
       </Card>
     {:else if (phase === 'intro' || phase === 'generating') && caseData}

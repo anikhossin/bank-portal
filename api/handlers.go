@@ -9,21 +9,27 @@ import (
 )
 
 type createCaseRequest struct {
-	CaseID           string `json:"case_id"`
-	IBAN             string `json:"iban"`
-	AESReference     string `json:"aes_reference"`
-	IssueType        string `json:"issue_type"`
-	IssueDescription string `json:"issue_description"`
+	CaseID       string `json:"case_id"`
+	IBAN         string `json:"iban"`
+	AESReference string `json:"aes_reference"`
 }
 
 type caseRecord struct {
-	CaseID           string `json:"case_id"`
-	IBAN             string `json:"iban"`
-	AESReference     string `json:"aes_reference"`
-	IssueType        string `json:"issue_type"`
-	IssueDescription string `json:"issue_description"`
-	Status           string `json:"status"`
-	CreatedAt        string `json:"created_at"`
+	CaseID       string `json:"case_id"`
+	IBAN         string `json:"iban"`
+	AESReference string `json:"aes_reference"`
+	Status       string `json:"status"`
+	CreatedAt    string `json:"created_at"`
+}
+
+type caseSummary struct {
+	CaseID       string `json:"case_id"`
+	IBAN         string `json:"iban"`
+	AESReference string `json:"aes_reference"`
+	Status       string `json:"status"`
+	CreatedAt    string `json:"created_at"`
+	PortalLink   string `json:"portal_link"`
+	Expired      bool   `json:"expired"`
 }
 
 type server struct {
@@ -44,13 +50,8 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request body"})
 		return
 	}
-	req.IssueType = strings.TrimSpace(req.IssueType)
-	if req.IBAN == "" || req.AESReference == "" || req.IssueDescription == "" {
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "iban, aes_reference and issue_description are required"})
-		return
-	}
-	if req.IssueType != "failed_transfer" && req.IssueType != "dispute" {
-		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "issue_type must be failed_transfer or dispute"})
+	if req.IBAN == "" || req.AESReference == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "iban and aes_reference are required"})
 		return
 	}
 
@@ -69,8 +70,8 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 
 	_, err = s.db.Exec(
 		`INSERT INTO cases (case_id, iban, aes_reference, issue_type, issue_description, status, token, token_used)
-		 VALUES (?, ?, ?, ?, ?, 'open', ?, 0)`,
-		caseID, req.IBAN, req.AESReference, req.IssueType, req.IssueDescription, token,
+		 VALUES (?, ?, ?, '', '', 'open', ?, 0)`,
+		caseID, req.IBAN, req.AESReference, token,
 	)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE") {
@@ -87,6 +88,55 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (s *server) listCases(w http.ResponseWriter, r *http.Request) {
+	rows, err := s.db.Query(
+		`SELECT case_id, iban, aes_reference, status, created_at, token, token_used FROM cases ORDER BY created_at DESC`,
+	)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "query failed"})
+		return
+	}
+	defer rows.Close()
+
+	var list []caseSummary
+	for rows.Next() {
+		var c caseSummary
+		var token string
+		var tokenUsed int
+		if err := rows.Scan(&c.CaseID, &c.IBAN, &c.AESReference, &c.Status, &c.CreatedAt, &token, &tokenUsed); err != nil {
+			continue
+		}
+		c.PortalLink = fmt.Sprintf("%s/case?token=%s", s.portalOrigin, token)
+		c.Expired = tokenUsed == 1
+		list = append(list, c)
+	}
+	if list == nil {
+		list = []caseSummary{}
+	}
+	writeJSON(w, http.StatusOK, list)
+}
+
+func (s *server) expireCase(w http.ResponseWriter, r *http.Request) {
+	var req struct {
+		CaseID string `json:"case_id"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil || req.CaseID == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "case_id required"})
+		return
+	}
+	res, err := s.db.Exec(`UPDATE cases SET token_used = 1 WHERE case_id = ?`, req.CaseID)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "update failed"})
+		return
+	}
+	n, _ := res.RowsAffected()
+	if n == 0 {
+		writeJSON(w, http.StatusNotFound, map[string]string{"error": "case not found"})
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
+}
+
 func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	token := r.URL.Query().Get("token")
 	if token == "" {
@@ -95,10 +145,10 @@ func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var rec caseRecord
+	var tokenUsed int
 	err := s.db.QueryRow(
-		`SELECT case_id, iban, aes_reference, issue_type, issue_description, status, created_at
-		 FROM cases WHERE token = ?`, token,
-	).Scan(&rec.CaseID, &rec.IBAN, &rec.AESReference, &rec.IssueType, &rec.IssueDescription, &rec.Status, &rec.CreatedAt)
+		`SELECT case_id, iban, aes_reference, status, created_at, token_used FROM cases WHERE token = ?`, token,
+	).Scan(&rec.CaseID, &rec.IBAN, &rec.AESReference, &rec.Status, &rec.CreatedAt, &tokenUsed)
 
 	if err == sql.ErrNoRows {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
@@ -106,6 +156,10 @@ func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "lookup failed"})
+		return
+	}
+	if tokenUsed == 1 {
+		writeJSON(w, http.StatusGone, map[string]string{"error": "expired"})
 		return
 	}
 

@@ -13,14 +13,12 @@ export interface CaseData {
 export type CaseResult =
   | { kind: 'ok'; data: CaseData }
   | { kind: 'invalid' }
-  | { kind: 'used' }
+  | { kind: 'expired' }
 
-// Interprets the server's 404/410/200 responses; no business logic here,
-// the API alone decides whether a token is valid, used, or fresh.
 export async function fetchCase(token: string): Promise<CaseResult> {
   const res = await fetch(`${API_URL}/api/case?token=${encodeURIComponent(token)}`)
   if (res.status === 404) return { kind: 'invalid' }
-  if (res.status === 410) return { kind: 'used' }
+  if (res.status === 410) return { kind: 'expired' }
   if (!res.ok) return { kind: 'invalid' }
   const data = await res.json()
   return { kind: 'ok', data }
