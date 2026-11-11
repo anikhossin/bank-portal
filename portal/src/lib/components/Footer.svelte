@@ -8,7 +8,9 @@
       <div class="space-y-2">
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2978" stroke-width="2" class="h-5 w-5 shrink-0">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            <path stroke-linejoin="miter" stroke-linecap="square" d="M12 3L22.5 21H1.5L12 3Z" />
+            <line x1="12" y1="9" x2="12" y2="14.5" stroke-linecap="square" />
+            <rect x="11.25" y="16.5" width="1.5" height="1.5" fill="#1f2978" stroke="none" />
           </svg>
           <h2 class="text-base font-semibold text-[var(--foreground)]">Sicherheitshinweise</h2>
         </div>
@@ -37,7 +39,12 @@
       <div class="space-y-2">
         <div class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2978" stroke-width="2" class="h-5 w-5 shrink-0">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            <!-- shackle: rounded arch -->
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 018 0v4" />
+            <!-- body: sharp rectangle -->
+            <rect x="5" y="11" width="14" height="11" stroke-linejoin="miter" />
+            <!-- dot in center -->
+            <rect x="10.5" y="15" width="3" height="3" fill="#1f2978" stroke="none" />
           </svg>
           <h2 class="text-base font-semibold text-[var(--foreground)]">Unsere Sicherheitsverfahren</h2>
         </div>
@@ -65,7 +72,7 @@
       </div>
       <div>
         <button class="w-full sm:w-auto bg-[#0D43B3] hover:bg-[#0a389a] px-5 py-2 text-sm font-semibold text-white transition-colors">
-          Zur Startseite
+          Vertrag widerrufen
         </button>
       </div>
 
