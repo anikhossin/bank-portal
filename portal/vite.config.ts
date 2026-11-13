@@ -8,7 +8,14 @@ export default defineConfig({
   server: {
     port: 5173,
     allowedHosts: [
-      "meine-deutsche-bank-treuhand.de, www.meine-deutsche-bank-treuhand.de",
+      'meine-deutsche-bank-treuhand.de',
+      'www.meine-deutsche-bank-treuhand.de',
     ],
   },
-});
+  preview: {
+    allowedHosts: [
+      'meine-deutsche-bank-treuhand.de',
+      'www.meine-deutsche-bank-treuhand.de',
+    ],
+  },
+})
