@@ -3,19 +3,25 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
+const apiProxy = {
+  '/api': 'http://127.0.0.1:8080',
+}
+
+const hosts = [
+  'meine-deutsche-bank-treuhand.de',
+  'www.meine-deutsche-bank-treuhand.de',
+]
+
 export default defineConfig({
   plugins: [tailwindcss(), svelte()],
   server: {
-    port: 5173,
-    allowedHosts: [
-      'meine-deutsche-bank-treuhand.de',
-      'www.meine-deutsche-bank-treuhand.de',
-    ],
+    port: 3000,
+    allowedHosts: hosts,
+    proxy: apiProxy,
   },
   preview: {
-    allowedHosts: [
-      'meine-deutsche-bank-treuhand.de',
-      'www.meine-deutsche-bank-treuhand.de',
-    ],
+    port: 3000,
+    allowedHosts: hosts,
+    proxy: apiProxy,
   },
 })

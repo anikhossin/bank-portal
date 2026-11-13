@@ -31,4 +31,3 @@ Runs on `PORT` from `.env` (default `8080`).
 | `PORT` | HTTP port |
 | `DB_PATH` | SQLite file path |
 | `TOKEN_SECRET` | HMAC signing secret — required, no default |
-| `PORTAL_ORIGIN` | Base URL used to build portal links (default `http://localhost:5173`) |

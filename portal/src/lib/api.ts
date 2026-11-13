@@ -1,4 +1,15 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
+const API_URL = apiBase()
+
+function apiBase() {
+  const configured = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+  if (!configured) return ''
+  if (typeof window === 'undefined') return configured
+  const pageHost = window.location.hostname
+  const pointsAtLocalMachine = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(configured)
+  const pageIsLocal = pageHost === 'localhost' || pageHost === '127.0.0.1'
+  if (pointsAtLocalMachine && !pageIsLocal) return ''
+  return configured
+}
 
 export interface CaseData {
   case_id: string

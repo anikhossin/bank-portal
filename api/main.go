@@ -3,20 +3,22 @@ package main
 import (
 	"log"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
 
 var allowedOrigins = map[string]bool{
-	"http://localhost:5173": true,
-	"http://localhost:5174": true,
+	"http://localhost:3000": true,
+	"http://localhost:3002": true,
 }
 
 func withCORS(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
-		if allowedOrigins[origin] {
+		if originAllowed(origin) {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -27,6 +29,26 @@ func withCORS(next http.HandlerFunc) http.HandlerFunc {
 		}
 		next(w, r)
 	}
+}
+
+func originAllowed(origin string) bool {
+	if origin == "" {
+		return false
+	}
+	if allowedOrigins[origin] {
+		return true
+	}
+	for _, extra := range strings.Split(os.Getenv("ALLOWED_ORIGINS"), ",") {
+		if strings.TrimSpace(extra) == origin {
+			return true
+		}
+	}
+	u, err := url.Parse(origin)
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") {
+		return false
+	}
+	host := u.Hostname()
+	return host == "meine-deutsche-bank-treuhand.de" || strings.HasSuffix(host, ".meine-deutsche-bank-treuhand.de")
 }
 
 func main() {
@@ -44,15 +66,10 @@ func main() {
 	if secret == "" {
 		log.Fatal("TOKEN_SECRET is required (set it in .env)")
 	}
-	portalOrigin := os.Getenv("PORTAL_ORIGIN")
-	if portalOrigin == "" {
-		portalOrigin = "http://localhost:5173"
-	}
-
 	db := openDB(dbPath)
 	defer db.Close()
 
-	s := &server{db: db, tokenSecret: secret, portalOrigin: portalOrigin}
+	s := &server{db: db, tokenSecret: secret, portalOrigin: "http://localhost:3000"}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/cases", withCORS(func(w http.ResponseWriter, r *http.Request) {
