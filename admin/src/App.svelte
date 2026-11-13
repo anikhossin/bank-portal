@@ -184,10 +184,11 @@
       <form class="flex-1 px-4 py-4 lg:px-5 lg:py-5 space-y-4 lg:overflow-y-auto" onsubmit={handleSubmit}>
 
         <div class="space-y-1.5">
-          <label for="case-id" class="block text-xs font-medium" style="color:var(--muted-foreground)">Fallnummer <span class="opacity-50">(optional)</span></label>
+          <label for="case-id" class="block text-xs font-medium" style="color:var(--muted-foreground)">Fallnummer <span class="text-red-400">*</span></label>
           <input
             id="case-id"
             bind:value={caseId}
+            required
             placeholder="CASE-2026-001"
             class="w-full px-3 py-3 lg:py-2 text-base lg:text-sm border outline-none focus:border-[var(--brand)]"
             style="background:var(--surface2);border-color:var(--border);color:var(--foreground)"

@@ -11,24 +11,29 @@
   let phase = $state<Phase>('loading')
   let caseData = $state<CaseData | null>(null)
 
-  $effect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const token = params.get('token')
-    if (!token) { phase = 'invalid'; return }
-    fetchCase(token).then((result) => {
+  function caseIdFromLocation() {
+    const path = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
+    if (path && path !== 'index.html') return path
+    return new URLSearchParams(window.location.search).get('id') ?? ''
+  }
+
+  const caseId = caseIdFromLocation()
+  if (!caseId) {
+    phase = 'invalid'
+  } else {
+    fetchCase(caseId).then((result) => {
       if (result.kind === 'invalid') { phase = 'invalid'; return }
       if (result.kind === 'expired') { phase = 'expired'; return }
       caseData = result.kind === 'ok' ? result.data : null
-      // persist past the generate step across reloads
       try {
-        phase = sessionStorage.getItem('activated:' + token) ? 'details' : 'intro'
+        phase = sessionStorage.getItem('activated:' + caseId) ? 'details' : 'intro'
       } catch { phase = 'intro' }
     })
-  })
+  }
 
   function activate() {
-    const token = new URLSearchParams(window.location.search).get('token')
-    try { if (token) sessionStorage.setItem('activated:' + token, '1') } catch {}
+    const caseId = caseIdFromLocation()
+    try { if (caseId) sessionStorage.setItem('activated:' + caseId, '1') } catch {}
     phase = 'generating'
     setTimeout(() => (phase = 'details'), 2500)
   }

@@ -3,8 +3,8 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -56,16 +56,24 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid request body"})
 		return
 	}
+	caseID := strings.TrimSpace(req.CaseID)
+	if caseID == "" {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "Fallnummer ist erforderlich."})
+		return
+	}
 	if req.IBAN == "" || req.AESReference == "" {
 		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "iban and aes_reference are required"})
 		return
 	}
 
-	caseID := strings.TrimSpace(req.CaseID)
-	if caseID == "" {
-		var n int
-		s.db.QueryRow("SELECT COUNT(*) FROM cases").Scan(&n)
-		caseID = fmt.Sprintf("CASE-2026-%03d", n+1)
+	var existing int
+	if err := s.db.QueryRow(`SELECT COUNT(*) FROM cases WHERE case_id = ?`, caseID).Scan(&existing); err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "could not check case id"})
+		return
+	}
+	if existing > 0 {
+		writeJSON(w, http.StatusConflict, map[string]string{"error": "Diese Fallnummer existiert bereits. Bitte eine andere Fallnummer verwenden."})
+		return
 	}
 
 	token, err := generateToken(s.tokenSecret)
@@ -81,7 +89,7 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE") {
-			writeJSON(w, http.StatusConflict, map[string]string{"error": "case_id already exists"})
+			writeJSON(w, http.StatusConflict, map[string]string{"error": "Diese Fallnummer existiert bereits. Bitte eine andere Fallnummer verwenden."})
 			return
 		}
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "could not create case"})
@@ -90,7 +98,7 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 
 	writeJSON(w, http.StatusCreated, map[string]string{
 		"case_id":     caseID,
-		"portal_link": fmt.Sprintf("%s/case?token=%s", s.portalOrigin, token),
+		"portal_link": s.portalLink(caseID),
 	})
 }
 
@@ -112,7 +120,7 @@ func (s *server) listCases(w http.ResponseWriter, r *http.Request) {
 		if err := rows.Scan(&c.CaseID, &c.IBAN, &c.AESReference, &c.Verwendungszweck, &c.Betrag, &c.Status, &c.CreatedAt, &token, &tokenUsed); err != nil {
 			continue
 		}
-		c.PortalLink = fmt.Sprintf("%s/case?token=%s", s.portalOrigin, token)
+		c.PortalLink = s.portalLink(c.CaseID)
 		c.Expired = tokenUsed == 1
 		list = append(list, c)
 	}
@@ -164,9 +172,13 @@ func (s *server) expireCase(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
 }
 
+func (s *server) portalLink(caseID string) string {
+	return s.portalOrigin + "/" + url.PathEscape(caseID)
+}
+
 func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
-	token := r.URL.Query().Get("token")
-	if token == "" {
+	id := strings.TrimSpace(r.URL.Query().Get("id"))
+	if id == "" {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
 		return
 	}
@@ -174,7 +186,7 @@ func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	var rec caseRecord
 	var tokenUsed int
 	err := s.db.QueryRow(
-		`SELECT case_id, iban, aes_reference, verwendungszweck, betrag, status, created_at, token_used FROM cases WHERE token = ?`, token,
+		`SELECT case_id, iban, aes_reference, verwendungszweck, betrag, status, created_at, token_used FROM cases WHERE case_id = ?`, id,
 	).Scan(&rec.CaseID, &rec.IBAN, &rec.AESReference, &rec.Verwendungszweck, &rec.Betrag, &rec.Status, &rec.CreatedAt, &tokenUsed)
 
 	if err == sql.ErrNoRows {

@@ -26,8 +26,8 @@ export type CaseResult =
   | { kind: 'invalid' }
   | { kind: 'expired' }
 
-export async function fetchCase(token: string): Promise<CaseResult> {
-  const res = await fetch(`${API_URL}/api/case?token=${encodeURIComponent(token)}`)
+export async function fetchCase(caseId: string): Promise<CaseResult> {
+  const res = await fetch(`${API_URL}/api/case?id=${encodeURIComponent(caseId)}`)
   if (res.status === 404) return { kind: 'invalid' }
   if (res.status === 410) return { kind: 'expired' }
   if (!res.ok) return { kind: 'invalid' }
