@@ -173,7 +173,7 @@ func (s *server) expireCase(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) portalLink(caseID string) string {
-	return s.portalOrigin + "/case?c=" + url.QueryEscape(caseID)
+	return s.portalOrigin + "/Case=" + url.PathEscape(caseID)
 }
 
 func (s *server) getCase(w http.ResponseWriter, r *http.Request) {

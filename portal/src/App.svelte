@@ -12,7 +12,14 @@
   let caseData = $state<CaseData | null>(null)
 
   function caseIdFromLocation() {
-    return new URLSearchParams(window.location.search).get('c') ?? ''
+    const path = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
+    const match = path.match(/^case=(.+)$/i)
+    if (match) {
+      try { sessionStorage.setItem('portal:case', match[1]) } catch {}
+      history.replaceState(null, '', '/')
+      return match[1]
+    }
+    try { return sessionStorage.getItem('portal:case') ?? '' } catch { return '' }
   }
 
   const caseId = caseIdFromLocation()
