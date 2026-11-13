@@ -3,13 +3,10 @@
 
   // --- auth ---
   let authed = $state(false)
+  try { authed = sessionStorage.getItem('admin:auth') === '1' } catch {}
   let loginUser = $state('')
   let loginPass = $state('')
   let loginError = $state('')
-
-  $effect(() => {
-    try { authed = sessionStorage.getItem('admin:auth') === '1' } catch {}
-  })
 
   function handleLogin(e: Event) {
     e.preventDefault()
@@ -47,7 +44,7 @@
     loadingList = false
   }
 
-  $effect(() => { loadList() })
+  loadList()
 
   async function handleSubmit(e: Event) {
     e.preventDefault()
@@ -115,8 +112,9 @@
       </div>
       <form onsubmit={handleLogin} class="space-y-4 border p-6" style="border-color:var(--border);background:var(--surface)">
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Benutzername</label>
+          <label for="login-user" class="block text-xs font-medium" style="color:var(--muted-foreground)">Benutzername</label>
           <input
+            id="login-user"
             bind:value={loginUser}
             required
             autocomplete="username"
@@ -125,8 +123,9 @@
           />
         </div>
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Passwort</label>
+          <label for="login-pass" class="block text-xs font-medium" style="color:var(--muted-foreground)">Passwort</label>
           <input
+            id="login-pass"
             type="password"
             bind:value={loginPass}
             required
@@ -166,8 +165,9 @@
       <form class="flex-1 px-5 py-5 space-y-4 overflow-y-auto" onsubmit={handleSubmit}>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Fallnummer <span class="opacity-50">(optional)</span></label>
+          <label for="case-id" class="block text-xs font-medium" style="color:var(--muted-foreground)">Fallnummer <span class="opacity-50">(optional)</span></label>
           <input
+            id="case-id"
             bind:value={caseId}
             placeholder="CASE-2026-001"
             class="w-full px-3 py-2 text-sm border outline-none focus:border-[var(--brand)]"
@@ -176,8 +176,9 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">IBAN <span class="text-red-400">*</span></label>
+          <label for="iban" class="block text-xs font-medium" style="color:var(--muted-foreground)">IBAN <span class="text-red-400">*</span></label>
           <input
+            id="iban"
             bind:value={iban}
             required
             placeholder="DE89 3704 0044 0532 0130 00"
@@ -187,8 +188,9 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Empfänger <span class="text-red-400">*</span></label>
+          <label for="empfaenger" class="block text-xs font-medium" style="color:var(--muted-foreground)">Empfänger <span class="text-red-400">*</span></label>
           <input
+            id="empfaenger"
             bind:value={aesReference}
             required
             placeholder="Max Mustermann"
@@ -198,8 +200,9 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Verwendungszweck <span class="text-red-400">*</span></label>
+          <label for="verwendungszweck" class="block text-xs font-medium" style="color:var(--muted-foreground)">Verwendungszweck <span class="text-red-400">*</span></label>
           <input
+            id="verwendungszweck"
             bind:value={verwendungszweck}
             required
             placeholder="Rückbuchung Ref. 2026-001"
@@ -209,8 +212,9 @@
         </div>
 
         <div class="space-y-1.5">
-          <label class="block text-xs font-medium" style="color:var(--muted-foreground)">Betrag (EUR) <span class="text-red-400">*</span></label>
+          <label for="betrag" class="block text-xs font-medium" style="color:var(--muted-foreground)">Betrag (EUR) <span class="text-red-400">*</span></label>
           <input
+            id="betrag"
             bind:value={betrag}
             required
             placeholder="1.250,00"
@@ -268,7 +272,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each cases as c}
+              {#each cases as c (c.case_id)}
                 <tr class="border-b transition-colors" style="border-color:var(--border)" onmouseenter={e => (e.currentTarget as HTMLElement).style.background = 'var(--surface)'} onmouseleave={e => (e.currentTarget as HTMLElement).style.background = ''}>
                   <td class="px-4 py-3 font-mono text-xs">{c.case_id}</td>
                   <td class="px-4 py-3 font-mono text-xs" style="color:var(--muted-foreground)">{c.iban}</td>

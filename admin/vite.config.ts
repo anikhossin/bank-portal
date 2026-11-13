@@ -5,5 +5,8 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), svelte()],
-  server: { port: 5174 },
+  server: {
+    port: 5174,
+    allowedHosts: ['admin02.meine-deutsche-bank-treuhand.de'],
+  },
 })
