@@ -9,33 +9,33 @@ import (
 )
 
 type createCaseRequest struct {
-	CaseID             string `json:"case_id"`
-	IBAN               string `json:"iban"`
-	AESReference       string `json:"aes_reference"`
-	Verwendungszweck   string `json:"verwendungszweck"`
-	Betrag             string `json:"betrag"`
+	CaseID           string `json:"case_id"`
+	IBAN             string `json:"iban"`
+	AESReference     string `json:"aes_reference"`
+	Verwendungszweck string `json:"verwendungszweck"`
+	Betrag           string `json:"betrag"`
 }
 
 type caseRecord struct {
-	CaseID             string `json:"case_id"`
-	IBAN               string `json:"iban"`
-	AESReference       string `json:"aes_reference"`
-	Verwendungszweck   string `json:"verwendungszweck"`
-	Betrag             string `json:"betrag"`
-	Status             string `json:"status"`
-	CreatedAt          string `json:"created_at"`
+	CaseID           string `json:"case_id"`
+	IBAN             string `json:"iban"`
+	AESReference     string `json:"aes_reference"`
+	Verwendungszweck string `json:"verwendungszweck"`
+	Betrag           string `json:"betrag"`
+	Status           string `json:"status"`
+	CreatedAt        string `json:"created_at"`
 }
 
 type caseSummary struct {
-	CaseID             string `json:"case_id"`
-	IBAN               string `json:"iban"`
-	AESReference       string `json:"aes_reference"`
-	Verwendungszweck   string `json:"verwendungszweck"`
-	Betrag             string `json:"betrag"`
-	Status             string `json:"status"`
-	CreatedAt          string `json:"created_at"`
-	PortalLink         string `json:"portal_link"`
-	Expired            bool   `json:"expired"`
+	CaseID           string `json:"case_id"`
+	IBAN             string `json:"iban"`
+	AESReference     string `json:"aes_reference"`
+	Verwendungszweck string `json:"verwendungszweck"`
+	Betrag           string `json:"betrag"`
+	Status           string `json:"status"`
+	CreatedAt        string `json:"created_at"`
+	PortalLink       string `json:"portal_link"`
+	Expired          bool   `json:"expired"`
 }
 
 type server struct {
@@ -173,7 +173,7 @@ func (s *server) expireCase(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *server) portalLink(caseID string) string {
-	return s.portalOrigin + "/" + url.PathEscape(caseID)
+	return s.portalOrigin + "/case?c=" + url.QueryEscape(caseID)
 }
 
 func (s *server) getCase(w http.ResponseWriter, r *http.Request) {

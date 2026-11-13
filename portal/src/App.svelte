@@ -12,9 +12,7 @@
   let caseData = $state<CaseData | null>(null)
 
   function caseIdFromLocation() {
-    const path = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
-    if (path && path !== 'index.html') return path
-    return new URLSearchParams(window.location.search).get('id') ?? ''
+    return new URLSearchParams(window.location.search).get('c') ?? ''
   }
 
   const caseId = caseIdFromLocation()
