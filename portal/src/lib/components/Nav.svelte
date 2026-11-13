@@ -4,7 +4,7 @@
     <!-- Left: staggered wordmark + TM-style logo -->
     <div class="flex items-start gap-1 shrink-0">
       <div class="flex flex-col leading-none text-[#1f2978]">
-        <span class="text-base sm:text-xl md:text-xl font-semibold tracking-wide">Dagual Bank</span>
+        <span class="text-base sm:text-xl md:text-xl font-semibold tracking-wide">Deutsche Bank</span>
         
       </div>
       <img src="/brand_icon.png" alt="" class="h-3.5 w-auto mt-0.5 opacity-80" />
