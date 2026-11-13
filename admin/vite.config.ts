@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [tailwindcss(), svelte()],
   server: {
     port: 5174,
-    allowedHosts: ['admin02.meine-deutsche-bank-treuhand.de'],
+    allowedHosts: ["admin02243.meine-deutsche-bank-treuhand.de"],
   },
-})
+});
