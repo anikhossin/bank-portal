@@ -1,24 +1,37 @@
-<nav class="border-b border-[var(--border)] bg-white px-6 py-4">
+<nav class="bg-[#1E2A78] px-6 py-4">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-8">
 
-    <!-- Left: staggered wordmark + TM-style logo -->
-    <div class="flex items-start gap-1 shrink-0">
-      <div class="flex flex-col leading-none text-[#1f2978]">
-        <span class="text-base sm:text-xl md:text-xl font-semibold tracking-wide">Deutsche Bank</span>
-        
-      </div>
-      <img src="/brand_icon.png" alt="" class="h-3.5 w-auto mt-0.5 opacity-80" />
+    <!-- Left: brand logo -->
+    <div class="flex items-center shrink-0">
+      <img src="/brand_icon_white.png" alt="Degal Bank" class="h-11 w-auto" />
     </div>
 
-    <!-- Right: lock icon + Secure Portal button -->
-    <!-- <div class="flex items-center gap-2 shrink-0">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1f2978" stroke-width="2" class="h-5 w-5 sm:h-6 sm:w-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-      </svg>
-      <span class="bg-[#1f2978] px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base font-semibold text-white tracking-wide">
-        Sicherheitsportal
-      </span> -->
-    <!-- </div> -->
+    <!-- Right: search, logout, menu -->
+    <div class="flex items-center gap-4 sm:gap-5 shrink-0 text-white">
+      <button type="button" aria-label="Suche" class="p-1 hover:opacity-70 transition-opacity">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
+      </button>
+
+      <button type="button" aria-label="Abmelden" class="p-1 hover:opacity-70 transition-opacity">
+        <!-- door with right-pointing arrow -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+          <path d="M14 4H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h8" />
+          <path d="M10 12h11" />
+          <path d="M17 8l4 4-4 4" />
+        </svg>
+      </button>
+
+      <button type="button" aria-label="Menü" class="p-1 hover:opacity-70 transition-opacity">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="h-6 w-6">
+          <path d="M4 6h16" />
+          <path d="M4 12h16" />
+          <path d="M4 18h16" />
+        </svg>
+      </button>
+    </div>
 
   </div>
 </nav>

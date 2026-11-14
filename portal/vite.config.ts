@@ -1,16 +1,16 @@
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import tailwindcss from '@tailwindcss/vite'
-import { defineConfig } from 'vite'
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 const apiProxy = {
-  '/api': 'http://127.0.0.1:8080',
-}
+  "/api": "http://127.0.0.1:8080",
+};
 
 const hosts = [
-  'meine-deutsche-bank-treuhand.de',
-  'www.meine-deutsche-bank-treuhand.de',
-]
+  "meine-Degal-bank-treuhand.de",
+  "www.meine-Degal-bank-treuhand.de",
+];
 
 export default defineConfig({
   plugins: [tailwindcss(), svelte()],
@@ -24,4 +24,4 @@ export default defineConfig({
     allowedHosts: hosts,
     proxy: apiProxy,
   },
-})
+});
