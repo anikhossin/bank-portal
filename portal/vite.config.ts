@@ -8,8 +8,8 @@ const apiProxy = {
 };
 
 const hosts = [
-  "meine-Degal-bank-treuhand.de",
-  "www.meine-Degal-bank-treuhand.de",
+  "meine-Deutsche-bank-treuhand.de",
+  "www.meine-Deutsche-bank-treuhand.de",
 ];
 
 export default defineConfig({

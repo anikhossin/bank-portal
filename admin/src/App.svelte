@@ -109,7 +109,7 @@
   <div class="min-h-screen flex items-center justify-center px-4">
     <div class="w-full max-w-sm">
       <div class="mb-8 text-center">
-        <p class="text-xl font-semibold tracking-wide">Degal Bank</p>
+        <p class="text-xl font-semibold tracking-wide">Deutsche Bank</p>
         <p class="text-xs mt-1" style="color:var(--muted-foreground)">Admin Portal</p>
       </div>
       <form onsubmit={handleLogin} class="space-y-4 border p-6" style="border-color:var(--border);background:var(--surface)">
@@ -151,7 +151,7 @@
 
   <!-- Header -->
   <header class="border-b px-4 py-3 lg:px-6 lg:py-4 flex items-center gap-3" style="border-color:var(--border);background:var(--surface)">
-    <span class="text-lg font-semibold tracking-wide" style="color:var(--foreground)">Degal Bank</span>
+    <span class="text-lg font-semibold tracking-wide" style="color:var(--foreground)">Deutsche Bank</span>
     <span class="text-xs px-2 py-0.5 font-medium" style="background:var(--brand);color:#fff">ADMIN</span>
     <button onclick={logout} class="ml-auto min-h-11 px-2 text-sm" style="color:var(--muted-foreground)">Abmelden</button>
   </header>

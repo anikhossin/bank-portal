@@ -3,7 +3,7 @@
 
     <!-- Left: brand logo -->
     <div class="flex items-center shrink-0">
-      <img src="/brand_icon_white.png" alt="Degal Bank" class="h-11 w-auto" />
+      <img src="/brand_icon_white.png" alt="Deutsche Bank" class="h-11 w-auto" />
     </div>
 
     <!-- Right: search, logout, menu -->
