@@ -18,8 +18,8 @@
           Achtung! Betrüger geben sich am Telefon als Bankmitarbeitende aus.
         </p>
         <div class="space-y-1">
-          <a href="https://www.Deutsche-bank.de/pk/service-und-kontakt/services/sicherheit/aktuelle-sicherheitshinweise.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den aktuellen Sicherheitshinweisen</a>
-              <a href="https://www.Deutsche-bank.de/pk/service-und-kontakt/services/sicherheit.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu Sicherheit im Überblick</a>
+          <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services/sicherheit/aktuelle-sicherheitshinweise.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den aktuellen Sicherheitshinweisen</a>
+              <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services/sicherheit.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu Sicherheit im Überblick</a>
         </div>
       </div>
 
@@ -32,7 +32,7 @@
         <p class="text-sm text-black-600 leading-relaxed">
           Hier können Sie Ihren persönlichen Zugang zum Online-Banking beantragen.
         </p>
-        <a href="https://www.Deutsche-bank.de/opra4x/public/pfb/request-online-banking-access/#/page-1-0" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Zugang zum Online-Banking beantragen</a>
+        <a href="https://www.deutsche-bank.de/opra4x/public/pfb/request-online-banking-access/#/page-1-0" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Zugang zum Online-Banking beantragen</a>
       </div>
 
       <!-- Security procedures -->
@@ -51,7 +51,7 @@
         <p class="text-sm text-black-600 leading-relaxed">
           Alles Wissenswerte rund um Ihren Login.
         </p>
-        <a href="https://www.Deutsche-bank.de/pk/konto-und-karte/services/sicherheit-im-online-banking/sicherheitsverfahren.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den Sicherheitsverfahren</a>
+        <a href="https://www.deutsche-bank.de/pk/konto-und-karte/services/sicherheit-im-online-banking/sicherheitsverfahren.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den Sicherheitsverfahren</a>
       </div>
 
     </div>
@@ -63,11 +63,11 @@
 
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href="#" class="text-sm font-bold text-white hover:text-white/70 transition-colors">English Version</a>
-        <a href="https://www.Deutsche-bank.de/pk/service-und-kontakt/services.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Hilfe</a>
-        <a href="https://meine.Deutsche-bank.de/demo/" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Demo-Konto</a>
-        <a href="https://www.Deutsche-bank.de/pk/lp/rechtliche-hinweise.html#parsys-accordion-accordionParsys-accordionentry_811071315" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Impressum</a>
-        <a href="https://www.Deutsche-bank.de/pk/lp/rechtliche-hinweise.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Rechtliche Hinweise</a>
-        <a href="https://www.Deutsche-bank.de/pk/shared/pu_help_ovv_datenschutz.standalone.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Datenschutz</a>
+        <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Hilfe</a>
+        <a href="https://meine.deutsche-bank.de/demo/" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Demo-Konto</a>
+        <a href="https://www.deutsche-bank.de/pk/lp/rechtliche-hinweise.html#parsys-accordion-accordionParsys-accordionentry_811071315" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Impressum</a>
+        <a href="https://www.deutsche-bank.de/pk/lp/rechtliche-hinweise.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Rechtliche Hinweise</a>
+        <a href="https://www.deutsche-bank.de/pk/shared/pu_help_ovv_datenschutz.standalone.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Datenschutz</a>
         <a href="#" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Cookie-Einstellungen</a>
       </div>
       <div>
