@@ -1,4 +1,4 @@
-<nav class="bg-[#1E2A78] px-6 py-4">
+<nav class="bg-[#1A2468] px-6 py-4">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-8">
 
     <!-- Left: brand logo -->
@@ -7,7 +7,7 @@
     </div>
 
     <!-- Right: search, logout, menu -->
-    <div class="flex items-center gap-4 sm:gap-5 shrink-0 text-white">
+    <div class="flex items-center gap-8 sm:gap-12 shrink-0 text-white">
       <button type="button" aria-label="Suche" class="p-1 hover:opacity-70 transition-opacity">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
           <circle cx="11" cy="11" r="7" />
