@@ -1,5 +1,19 @@
 <footer>
 
+  <!-- Promo: white -->
+  <div class="bg-white border-t border-[var(--border)] px-4 pt-6">
+    <div class="space-y-2 text-left">
+      <p class="text-base font-bold text-[var(--foreground)]">
+        3,25% p.a.* Zinsen fest für 12 Monate bei Neugeld
+      </p>
+      <p class="text-sm text-black-600 leading-relaxed">Degal Bank FestzinsSparen</p>
+      <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-0">
+        <a href="#" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
+        <img src="/ad.png" alt="3,25 % FestzinsSparen" width="402" height="232" class="mb-4 h-auto w-full max-w-[402px] object-contain sm:h-[232px] sm:w-[402px]" />
+      </div>
+    </div>
+  </div>
+
   <!-- Upper: white -->
   <div class="bg-white border-t border-[var(--border)] px-4 py-3">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
