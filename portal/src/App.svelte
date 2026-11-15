@@ -44,10 +44,11 @@
   }
 </script>
 
-<div class="min-h-screen bg-white flex flex-col">
+<div class="min-h-screen bg-white flex flex-col lg:h-screen lg:overflow-hidden">
   <Nav />
 
-  <main class="flex-1 mx-auto w-full max-w-xl px-4 py-10 sm:px-6">
+  <div class="flex flex-1 flex-col lg:min-h-0 lg:flex-row lg:items-stretch">
+  <main class="min-h-0 flex-1 mx-auto w-full max-w-xl px-4 py-10 sm:px-6 lg:overflow-y-auto">
     {#if phase === 'loading'}
       <p class="text-center text-sm text-[var(--muted-foreground)]">Loading your case details...</p>
     {:else if phase === 'invalid'}
@@ -146,4 +147,5 @@
   </main>
 
   <Footer />
+  </div>
 </div>

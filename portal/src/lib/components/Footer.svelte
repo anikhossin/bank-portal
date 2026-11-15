@@ -1,22 +1,22 @@
-<footer>
+<footer class="lg:mr-20 lg:flex lg:h-full lg:w-[348px] lg:shrink-0 lg:flex-col lg:overflow-hidden lg:border-x lg:border-[var(--border)] lg:bg-white">
 
   <!-- Promo: white -->
-  <div class="bg-white border-t border-[var(--border)] px-4 pt-6">
-    <div class="space-y-2 text-left">
+  <div class="bg-white border-t border-[var(--border)] px-4 pt-6 lg:shrink-0 lg:border-t-0 lg:px-4 lg:pt-3">
+    <div class="space-y-2 text-left lg:space-y-1">
       <p class="text-base font-bold text-[var(--foreground)]">
         3,25% p.a.* Zinsen fest für 12 Monate bei Neugeld
       </p>
       <p class="text-sm text-black-600 leading-relaxed">Deutsche Bank FestzinsSparen</p>
-      <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-0">
+      <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-0 lg:flex-col lg:gap-3">
         <a href="#" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
-        <img src="/ad.png" alt="3,25 % FestzinsSparen" width="402" height="232" class="mb-4 h-auto w-full max-w-[402px] object-contain sm:h-[232px] sm:w-[402px]" />
+        <img src="/ad.png" alt="3,25 % FestzinsSparen" width="316" height="200" class="mb-4 h-auto w-full max-w-[402px] object-contain sm:h-[232px] sm:w-[402px] lg:mb-2 lg:h-[200px] lg:w-[316px] lg:max-w-full" />
       </div>
     </div>
   </div>
 
   <!-- Upper: white -->
-  <div class="bg-white border-t border-[var(--border)] px-4 py-3">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+  <div class="bg-white border-t border-[var(--border)] px-4 py-3 lg:py-2">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-1 lg:gap-3">
 
       <!-- Security notices -->
       <div class="space-y-2">
@@ -72,8 +72,8 @@
   </div>
 
   <!-- Lower: dark blue -->
-  <div class="bg-[#1E2A78] px-4 py-5">
-    <div class="space-y-3">
+  <div class="bg-[#1E2A78] px-4 py-5 lg:mt-auto lg:shrink-0 lg:py-3">
+    <div class="space-y-3 lg:space-y-2">
 
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href="#" class="text-sm font-bold text-white hover:text-white/70 transition-colors">English Version</a>
