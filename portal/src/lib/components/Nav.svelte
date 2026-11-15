@@ -1,4 +1,4 @@
-<nav class="bg-[#1A2468] px-6 py-4">
+<nav class="bg-[#1A2468] px-6 py-3">
   <div class="mx-auto flex max-w-5xl items-center justify-between gap-8">
 
     <!-- Left: brand logo -->
