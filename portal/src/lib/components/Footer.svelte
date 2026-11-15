@@ -1,4 +1,4 @@
-<footer class="lg:mr-20 lg:flex lg:h-full lg:w-[348px] lg:shrink-0 lg:flex-col lg:overflow-hidden lg:border-x lg:border-[var(--border)] lg:bg-white">
+<footer class="lg:mr-20 lg:flex lg:h-full lg:w-[350px] lg:shrink-0 lg:flex-col lg:overflow-hidden lg:border-x lg:border-[var(--border)] lg:bg-white">
 
   <!-- Promo: white -->
   <div class="bg-white border-t border-[var(--border)] px-4 pt-6 lg:shrink-0 lg:border-t-0 lg:px-4 lg:pt-3">
