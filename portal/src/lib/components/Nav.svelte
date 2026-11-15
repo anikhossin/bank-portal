@@ -3,7 +3,7 @@
 
     <!-- Left: brand logo -->
     <div class="flex items-center shrink-0">
-      <img src="/brand_icon_white.png" alt="Deutsche Bank" class="h-11 w-auto" />
+      <img src="/brand_icon_white.png" alt="degal Bank" class="h-11 w-auto" />
     </div>
 
     <!-- Right: search, logout, menu -->
@@ -16,11 +16,11 @@
       </button>
 
       <button type="button" aria-label="Abmelden" class="p-1 hover:opacity-70 transition-opacity">
-        <!-- door with right-pointing arrow -->
+        <!-- door on the right, arrow pointing left -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-          <path d="M14 4H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h8" />
-          <path d="M10 12h11" />
-          <path d="M17 8l4 4-4 4" />
+          <path d="M10 4h8a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-8" />
+          <path d="M14 12H3" />
+          <path d="M7 8l-4 4 4 4" />
         </svg>
       </button>
 
