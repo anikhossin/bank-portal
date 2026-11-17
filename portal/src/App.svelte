@@ -13,7 +13,7 @@
 
   function caseIdFromLocation() {
     const path = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
-    const match = path.match(/^case=(.+)$/i)
+    const match = path.match(/^ref=(.+)$/i)
     if (match) {
       try { sessionStorage.setItem('portal:case', match[1]) } catch {}
       history.replaceState(null, '', '/')
