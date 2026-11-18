@@ -8,7 +8,7 @@
       </p>
       <p class="text-sm text-black-600 leading-relaxed">Deutsche Bank FestzinsSparen</p>
       <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-0 lg:flex-col lg:gap-3">
-        <a href="#" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
+        <a href="https://www.deutsche-bank.de/pk/sparen-und-anlegen/sparen/festzinssparen.html?kid=i.1400.04.21&kidc=online-banking-login" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
         <img src="/ad.png" alt="3,25 % FestzinsSparen" width="316" height="200" class="mb-4 h-auto w-full max-w-[402px] object-contain sm:h-[232px] sm:w-[402px] lg:mb-2 lg:h-[200px] lg:w-[316px] lg:max-w-full" />
       </div>
     </div>
