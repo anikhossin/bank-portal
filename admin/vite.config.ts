@@ -12,16 +12,14 @@ export default defineConfig({
   server: {
     port: 3002,
     allowedHosts: [
-      "admin02243.meine-deutsche-bank-treuhand.de",
-      "admi890.meine-deutsche-bank-treuhand.de",
+      "admin34.treuhand-meine-deutsche-bank.de"
     ],
     proxy: apiProxy,
   },
   preview: {
     port: 3002,
     allowedHosts: [
-      "admin02243.meine-deutsche-bank-treuhand.de",
-      "admi890.meine-deutsche-bank-treuhand.de",
+      "admin34.treuhand-meine-deutsche-bank.de"
     ],
     proxy: apiProxy,
   },
