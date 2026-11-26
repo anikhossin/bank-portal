@@ -55,7 +55,7 @@
       <Card class="p-8 text-center">
         <h1 class="text-lg font-semibold text-[var(--foreground)]">Dieser Link ist ungültig</h1>
         <p class="mt-2 text-sm text-[var(--muted-foreground)]">
-          Bitte kontaktieren Sie Ihre Bank für einen neuen Link.
+          Bitte kontaktieren Sie Ihre  Bank für einen neuen Link.
         </p>
       </Card>
     {:else if phase === 'expired'}
@@ -81,7 +81,7 @@
           </p>
         {:else}
           <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
-            Um Ihre persönliche Treuhand-IBAN für die Einzahlung zu aktivieren, klicken Sie bitte auf den untenstehenden Button. Dies stellt sicher, dass Ihre Transaktion gemäß den aktuellen Sicherheitsstandards.
+            Um Ihre persönliche Treuhand-IBAN für die Einzahlung  zu aktivieren, klicken Sie bitte auf den untenstehenden Button. Dies stellt sicher, dass Ihre Transaktion gemäß den aktuellen Sicherheitsstandards.
             <strong class="font-semibold text-[var(--foreground)]">Sicherheitsstandards (PSD2)</strong>  verschlüsselt wird.
           </p>
         {/if}
@@ -133,7 +133,7 @@
         <hr class="my-4 border-t border-[var(--border)]" />
 
         <p class="text-sm text-[var(--muted-foreground)] leading-relaxed">
-          Ihr persönliches Treuhandkonto wurde erfolgreich erstellt. Der Empfängername ist ein zufällig zugeteilter, virtueller IBAN-Name, der mit einer Referenznummer Ihrem Konto zugeordnet ist. Dies schützt Sie vor Angriffen, da das Konto nicht auf Ihren Namen zurückverfolgt werden kann.
+          Ihr persönliches Treuhandkonto wurde erfolgreich  erstellt. Der Empfängername ist ein zufällig zugeteilter, virtueller IBAN-Name, der mit einer Referenznummer Ihrem Konto zugeordnet ist. Dies schützt Sie vor Angriffen, da das Konto nicht auf Ihren Namen zurückverfolgt werden kann.
         </p>
 
         <div class="mt-6 space-y-4">

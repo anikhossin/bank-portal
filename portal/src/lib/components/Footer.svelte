@@ -29,7 +29,7 @@
           <h2 class="text-base font-semibold text-[var(--foreground)]">Sicherheitshinweise</h2>
         </div>
         <p class="text-sm text-black-600 leading-relaxed">
-          Achtung! Betrüger geben sich am Telefon als Bankmitarbeitende aus.
+          Achtung! Betrüger geben sich am Telefon  als Bankmitarbeitende aus.
         </p>
         <div class="space-y-1">
           <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services/sicherheit/aktuelle-sicherheitshinweise.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den aktuellen Sicherheitshinweisen</a>
@@ -44,7 +44,7 @@
           <h2 class="text-base font-semibold text-[var(--foreground)]">Online-Banking Zugang</h2>
         </div>
         <p class="text-sm text-black-600 leading-relaxed">
-          Hier können Sie Ihren persönlichen Zugang zum Online-Banking beantragen.
+          Hier können Sie Ihren  persönlichen Zugang zum Online-Banking beantragen.
         </p>
         <a href="https://www.deutsche-bank.de/opra4x/public/pfb/request-online-banking-access/#/page-1-0" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Zugang zum Online-Banking beantragen</a>
       </div>
