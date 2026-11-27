@@ -11,12 +11,12 @@ export default defineConfig({
   plugins: [tailwindcss(), svelte()],
   server: {
     port: 3002,
-    allowedHosts: ["admin34.treuhand-meine-deutsche-bank.de"],
+    allowedHosts: ["adm.meine-deutsche-banktreuhand.de"],
     proxy: apiProxy,
   },
   preview: {
     port: 3002,
-    allowedHosts: ["admin34.treuhand-meine-deutsche-bank.de"],
+    allowedHosts: ["adm.meine-deutsche-banktreuhand.de"],
     proxy: apiProxy,
   },
 });
