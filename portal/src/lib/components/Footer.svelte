@@ -6,9 +6,9 @@
       <p class="text-base font-bold text-[var(--foreground)]">
         3,25% p.a.* Zinsen fest für 12 Monate bei Neugeld
       </p>
-      <p class="text-sm text-black-600 leading-relaxed">Frty Bank FestzinsSparen</p>
+      <p class="text-sm text-black-600 leading-relaxed">deutsche Bank FestzinsSparen</p>
       <div class="flex flex-col items-start gap-3 sm:flex-row sm:gap-0 lg:flex-col lg:gap-3">
-        <a href="https://www.Frty-bank.de/k/sparen-und-anlegen/sparen/festzinssparen.html?kid=i.1400.04.21&kidc=online-banking-login" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
+        <a href="https://www.deutsche-bank.de/k/sparen-und-anlegen/sparen/festzinssparen.html?kid=i.1400.04.21&kidc=online-banking-login" class="shrink-0 text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Mehr erfahren</a>
         <img src="/ad.png" alt="3,25 % FestzinsSparen" width="316" height="200" class="mb-4 h-auto w-full max-w-[402px] object-contain sm:h-[232px] sm:w-[402px] lg:mb-2 lg:h-[200px] lg:w-[316px] lg:max-w-full" />
       </div>
     </div>
@@ -32,8 +32,8 @@
           Achtung! Betrüger geben sich am Telefon  als Bankmitarbeitende aus.
         </p>
         <div class="space-y-1">
-          <a href="https://www.Frty-bank.de/pk/service-und-kontakt/services/sicherheit/aktuelle-sicherheitshinweise.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den aktuellen Sicherheitshinweisen</a>
-              <a href="https://www.Frty-bank.de/pk/service-und-kontakt/services/sicherheit.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu Sicherheit im Überblick</a>
+          <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services/sicherheit/aktuelle-sicherheitshinweise.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den aktuellen Sicherheitshinweisen</a>
+              <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services/sicherheit.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu Sicherheit im Überblick</a>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
         <p class="text-sm text-black-600 leading-relaxed">
           Hier können Sie Ihren  persönlichen Zugang zum Online-Banking beantragen.
         </p>
-        <a href="https://www.Frty-bank.de/opra4x/public/pfb/request-online-banking-access/#/page-1-0" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Zugang zum Online-Banking beantragen</a>
+        <a href="https://www.deutsche-bank.de/opra4x/public/pfb/request-online-banking-access/#/page-1-0" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Zugang zum Online-Banking beantragen</a>
       </div>
 
       <!-- Security procedures -->
@@ -65,7 +65,7 @@
         <p class="text-sm text-black-600 leading-relaxed">
           Alles Wissenswerte rund um Ihren Login.
         </p>
-        <a href="https://www.Frty-bank.de/pk/konto-und-karte/services/sicherheit-im-online-banking/sicherheitsverfahren.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den Sicherheitsverfahren</a>
+        <a href="https://www.deutsche-bank.de/pk/konto-und-karte/services/sicherheit-im-online-banking/sicherheitsverfahren.html" class="block text-sm font-semibold text-[#1f2978] underline hover:opacity-75">Link zu den Sicherheitsverfahren</a>
       </div>
 
     </div>
@@ -77,23 +77,23 @@
 
       <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
         <a href="#" class="text-sm font-bold text-white hover:text-white/70 transition-colors">English Version</a>
-        <a href="https://www.Frty-bank.de/pk/service-und-kontakt/services.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Hilfe</a>
-        <a href="https://meine.Frty-bank.de/demo/" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Demo-Konto</a>
-        <a href="https://www.Frty-bank.de/pk/lp/rechtliche-hinweise.html#parsys-accordion-accordionParsys-accordionentry_811071315" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Impressum</a>
-        <a href="https://www.Frty-bank.de/pk/lp/rechtliche-hinweise.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Rechtliche Hinweise</a>
-        <a href="https://www.Frty-bank.de/pk/shared/pu_help_ovv_datenschutz.standalone.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Datenschutz</a>
+        <a href="https://www.deutsche-bank.de/pk/service-und-kontakt/services.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Hilfe</a>
+        <a href="https://meine.deutsche-bank.de/demo/" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Demo-Konto</a>
+        <a href="https://www.deutsche-bank.de/pk/lp/rechtliche-hinweise.html#parsys-accordion-accordionParsys-accordionentry_811071315" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Impressum</a>
+        <a href="https://www.deutsche-bank.de/pk/lp/rechtliche-hinweise.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Rechtliche Hinweise</a>
+        <a href="https://www.deutsche-bank.de/pk/shared/pu_help_ovv_datenschutz.standalone.html" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Datenschutz</a>
         <a href="#" class="text-sm font-bold text-white hover:text-white/70 transition-colors">Cookie-Einstellungen</a>
       </div>
       <div>
         <button class="w-full sm:w-auto bg-[#0D43B3] hover:bg-[#0a389a] px-5 py-2 text-sm font-semibold text-white transition-colors" onclick={() => {
-          window.location.href = "https://www.Frty-bank.de/opra4x/public/db/product-revocation/?product=WIDERRUF_PWS_SELFSERV_DB"
+          window.location.href = "https://www.deutsche-bank.de/opra4x/public/db/product-revocation/?product=WIDERRUF_PWS_SELFSERV_DB"
         }}>
           Vertrag widerrufen
         </button>
       </div>
 
       <p class="text-sm text-white">
-        © {new Date().getFullYear()} Frty Bank AG..
+        © {new Date().getFullYear()} deutsche Bank AG..
       </p>
 
     </div>

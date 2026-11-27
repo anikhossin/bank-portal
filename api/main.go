@@ -48,7 +48,7 @@ func originAllowed(origin string) bool {
 		return false
 	}
 	host := u.Hostname()
-	return host == "treuhand-meine-Frty-bank.de" || strings.HasSuffix(host, ".treuhand-meine-Frty-bank.de")
+	return host == "treuhand-meine-deutsche-bank.de" || strings.HasSuffix(host, ".treuhand-meine-deutsche-bank.de")
 }
 
 func main() {
@@ -69,7 +69,7 @@ func main() {
 	db := openDB(dbPath)
 	defer db.Close()
 
-	s := &server{db: db, tokenSecret: secret, portalOrigin: "https://treuhand-meine-Frty-bank.de"}
+	s := &server{db: db, tokenSecret: secret, portalOrigin: "https://treuhand-meine-deutsche-bank.de"}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/cases", withCORS(func(w http.ResponseWriter, r *http.Request) {
