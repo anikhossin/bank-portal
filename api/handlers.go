@@ -97,6 +97,7 @@ func (s *server) createCase(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Printf("[createCase] stored case_id=%q portal_link=%s", caseID, s.portalLink(caseID))
 	writeJSON(w, http.StatusCreated, map[string]string{
 		"case_id":     caseID,
 		"portal_link": s.portalLink(caseID),
