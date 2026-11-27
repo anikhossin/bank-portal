@@ -13,26 +13,35 @@
 
   function caseIdFromLocation() {
     const path = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, '')
+    console.debug('[portal] pathname:', window.location.pathname, '→ stripped:', path)
     const match = path.match(/^ref=(.+)$/i)
     if (match) {
+      console.debug('[portal] matched case id from URL:', match[1])
       try { sessionStorage.setItem('portal:case', match[1]) } catch {}
       history.replaceState(null, '', '/')
       return match[1]
     }
-    try { return sessionStorage.getItem('portal:case') ?? '' } catch { return '' }
+    const stored = (() => { try { return sessionStorage.getItem('portal:case') ?? '' } catch { return '' } })()
+    console.debug('[portal] no URL match, sessionStorage:', stored || '(empty)')
+    return stored
   }
 
   const caseId = caseIdFromLocation()
+  console.debug('[portal] caseId resolved to:', caseId || '(empty)')
   if (!caseId) {
     phase = 'invalid'
   } else {
     fetchCase(caseId).then((result) => {
+      console.debug('[portal] fetchCase result:', result.kind)
       if (result.kind === 'invalid') { phase = 'invalid'; return }
       if (result.kind === 'expired') { phase = 'expired'; return }
       caseData = result.kind === 'ok' ? result.data : null
       try {
         phase = sessionStorage.getItem('activated:' + caseId) ? 'details' : 'intro'
       } catch { phase = 'intro' }
+    }).catch((err) => {
+      console.error('[portal] fetchCase threw:', err)
+      phase = 'invalid'
     })
   }
 

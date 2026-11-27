@@ -27,10 +27,16 @@ export type CaseResult =
   | { kind: 'expired' }
 
 export async function fetchCase(caseId: string): Promise<CaseResult> {
-  const res = await fetch(`${API_URL}/api/case?id=${encodeURIComponent(caseId)}`)
+  const url = `${API_URL}/api/case?id=${encodeURIComponent(caseId)}`
+  console.debug('[fetchCase] fetching', url)
+  const res = await fetch(url)
+  console.debug('[fetchCase] status', res.status, 'for id', caseId)
   if (res.status === 404) return { kind: 'invalid' }
   if (res.status === 410) return { kind: 'expired' }
-  if (!res.ok) return { kind: 'invalid' }
+  if (!res.ok) {
+    console.error('[fetchCase] unexpected status', res.status)
+    return { kind: 'invalid' }
+  }
   const data = await res.json()
   return { kind: 'ok', data }
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -178,7 +179,9 @@ func (s *server) portalLink(caseID string) string {
 
 func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimSpace(r.URL.Query().Get("id"))
+	log.Printf("[getCase] id=%q origin=%q", id, r.Header.Get("Origin"))
 	if id == "" {
+		log.Printf("[getCase] rejected: empty id")
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
 		return
 	}
@@ -190,17 +193,21 @@ func (s *server) getCase(w http.ResponseWriter, r *http.Request) {
 	).Scan(&rec.CaseID, &rec.IBAN, &rec.AESReference, &rec.Verwendungszweck, &rec.Betrag, &rec.Status, &rec.CreatedAt, &tokenUsed)
 
 	if err == sql.ErrNoRows {
+		log.Printf("[getCase] not found in db: id=%q", id)
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
 		return
 	}
 	if err != nil {
+		log.Printf("[getCase] db error: id=%q err=%v", id, err)
 		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "lookup failed"})
 		return
 	}
 	if tokenUsed == 1 {
+		log.Printf("[getCase] expired: id=%q", id)
 		writeJSON(w, http.StatusGone, map[string]string{"error": "expired"})
 		return
 	}
 
+	log.Printf("[getCase] ok: id=%q", id)
 	writeJSON(w, http.StatusOK, rec)
 }
