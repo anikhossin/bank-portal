@@ -69,7 +69,7 @@ func main() {
 	db := openDB(dbPath)
 	defer db.Close()
 
-	s := &server{db: db, tokenSecret: secret, portalOrigin: "https://www.treuhand-meine-deutsche-bank.de"}
+	s := &server{db: db, tokenSecret: secret, portalOrigin: "https://treuhand-meine-deutsche-bank.de"}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/cases", withCORS(func(w http.ResponseWriter, r *http.Request) {
